@@ -1,0 +1,20 @@
+$font-path: "../fonts/" !default;
+
+/* Light */
+@font-face {
+	font-family: "Helvetica";
+	font-style: normal;
+    src: local("Helvetica"), url("#{$font-path}Helvetica.eot");
+    src: url("#{$font-path}Helvetica.eot?#iefix") format("embedded-opentype"),
+         url("#{$font-path}Helvetica.woff") format("woff"),
+         url("#{$font-path}Helvetica.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Helvetica Bold";
+    src: local("Helvetica Bold"), url("#{$font-path}Helvetica-Bold.eot");
+    src: url("#{$font-path}Helvetica-Bold.eot?#iefix") format("embedded-opentype"),
+         url("#{$font-path}Helvetica-Bold.woff") format("woff"),
+         url("#{$font-path}Helvetica-Bold.ttf") format("truetype");
+	font-weight: bold;
+    font-style: normal;
+}
