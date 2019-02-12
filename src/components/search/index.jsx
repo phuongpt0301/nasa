@@ -6,7 +6,11 @@ import { Container } from './style.css';
 import { Col, Row } from '../common/grid.css'; 
 import IconBack from '../icons/iconBack';
 import { fetchDataSearch } from '../../actions/search';
-import Item from '../list/item';
+import Item from './item';
+import { handleDataItemCurrent } from '../../actions/list';
+import { handleModalAddItem } from '../../actions/search';
+import ModalItem from './ModalItem';
+import ModalAdd from './ModalAdd';
 
 export class Search extends Component {
 
@@ -36,17 +40,8 @@ export class Search extends Component {
     }
 
     render() {
-        const { dataSearch } = this.props;
+        const { dataSearch, handleDataItemCurrent, handleModalAddItem } = this.props;
         const { strSearch, submit } = this.state;
-        console.log(this.props);
-
-        // if(dataSearch.loading) {
-        //     return (
-        //         <div className="waiting-container">
-        //           <ClipLoader color={'#784CC0'} size={42} sizeUnit={'px'} />
-        //         </div>
-        //     )
-        // }
 
         return (
             <Container>
@@ -66,15 +61,24 @@ export class Search extends Component {
 
                     {
                         submit &&
-                            <p>{ (dataSearch.collection && dataSearch.collection.metadata && dataSearch.collection.metadata.total_hits) ? dataSearch.collection.metadata.total_hits : 0 } result for {strSearch}</p>
+                            <p className="title-result-area">{ (dataSearch.collection && dataSearch.collection.metadata && dataSearch.collection.metadata.total_hits) ? dataSearch.collection.metadata.total_hits : 0 } result for "{strSearch}"</p>
                     }
                     {
                         (dataSearch.collection && dataSearch.collection.items && dataSearch.collection.items.length > 0) &&
                             <Row>
-                                { dataSearch.collection.items.map((item, index) => <Item item={item} key={`search-${index}`} />) }
+                                { dataSearch.collection.items.map((item, index) => <Item item={item} key={`search-${index}`} handleDataItemCurrent={handleDataItemCurrent} handleModalAddItem={handleModalAddItem} />) }
                             </Row>
                     }
+
+                    {
+                        dataSearch.loading &&
+                        <div className="waiting-container">
+                            <ClipLoader color={'#784CC0'} size={42} sizeUnit={'px'} />
+                        </div>
+                    }
                 </Col>
+                <ModalItem />
+                { dataSearch.isShow && <ModalAdd /> }
             </Container>
         )
     }
@@ -86,7 +90,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchDataSearch: (strSearch) => { dispatch(fetchDataSearch(strSearch)) }
+        fetchDataSearch: (strSearch) => { dispatch(fetchDataSearch(strSearch)) },
+        handleDataItemCurrent: (item) => { dispatch(handleDataItemCurrent(item)) },
+        handleModalAddItem: (data) => { dispatch(handleModalAddItem(data)) }
     }
 }
 

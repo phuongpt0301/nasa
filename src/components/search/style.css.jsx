@@ -23,6 +23,8 @@ const Container = styled.section`
         }
     }
     .search-area {
+        margin-bottom: 33px;
+        
         h2.title {
             color: #000000;
             font-family: Helvetica;
@@ -63,12 +65,6 @@ const Container = styled.section`
                     z-index: 2;
                 }
 
-                // &:not(:hover) {
-                //     &:valid + label {
-                //         display: none;
-                //     }
-                // }
-
                 &:valid:not(:focus) + label {
                     display: none;
                 }
@@ -92,6 +88,20 @@ const Container = styled.section`
                 padding: 19px 0 18px 9px;
             }
         }
+    }
+    .title-result-area {
+        color: #000000;
+        font-family: Helvetica;
+        font-size: 12px;
+        letter-spacing: 0.09px;
+        line-height: 14px;
+        margin-bottom: 34px;
+    }
+    .waiting-container {
+        display: flex;
+        position: relative;
+        top: 50px;
+        justify-content: center;
     }
 `;
 

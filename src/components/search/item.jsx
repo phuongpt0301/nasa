@@ -30,22 +30,14 @@ class Item extends Component {
         });
     }
 
-    handleEdit(item) {
-        const { handleModalEditItem, dataList } = this.props;
-
-        handleModalEditItem({
-            currentItem: item,
-            isEditShow: !dataList.isEditShow
-        })
-    }
-
     render() {
         const { item } = this.props;
         let link = defaultImage;
 
-        if(item.imageUrl) {
-            link = item.imageUrl;
+        if(item.links && item.links.length > 0 && !item.links[0].href.includes('.srt')) {
+            link = item.links[0].href;
         }
+
 
         return(
             <ItemContainer>
@@ -57,17 +49,15 @@ class Item extends Component {
                         </div>
                     </div>
                     <div className="info-area">
-                        <span className="center-area">{ item.center ? item.center : 'Unknown' }</span>
-                        <span className="date-created-area">{ item.dateCreated ? item.dateCreated : 'Unknown' }</span>
+                        <span className="center-area">{ (item.data.length > 0 && item.data[0].center) ? item.data[0].center : 'Unknown' }</span>
+                        <span className="date-created-area">{ (item.data.length > 0 && item.data[0].date_created) ? item.data[0].date_created : 'Unknown' }</span>
                     </div>
                     <div className="content-area">
-                        <h3 className="title">{ item.title ? item.title : 'Unknown' }</h3>
-                        <p className="description">{ item.description ? item.description : 'Unknown' }</p>
+                        <h3 className="title">{ (item.data.length > 0 && item.data[0].title) ? item.data[0].title : 'Unknown' }</h3>
+                        <p className="description">{ (item.data.length > 0 && item.data[0].description) ? item.data[0].description : 'Unknown' }</p>
                     </div>
-                    <div className="icon-area icon-list-area">
-                       <button type="button" className="btn-heart"><i className="icon-heart"></i></button>
-                       <button type="button" className="btn-trash"><i className="icon-trash"></i></button>
-                       <button type="button" className="btn-pen" onClick={() => this.handleEdit(item)}><i className="icon-pen"></i></button>
+                    <div className="icon-area">
+                       <button type="button" className="btn-add" onClick={() => this.handleAdd(item)}><IconAdd color="#000000" /><span>Add to NASA collection</span></button>
                     </div>
                 </div>
             </ItemContainer>

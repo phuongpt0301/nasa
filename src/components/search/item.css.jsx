@@ -9,10 +9,6 @@ const ItemContainer = styled.section`
         margin-left: 0;
     }
 
-    button {
-        background: transparent;
-        outline: none;
-    }
     img {
         width: 100%;
         height: 100%;
@@ -46,20 +42,20 @@ const ItemContainer = styled.section`
                     outline: 0;
                 }
             }
+        }
+        
+        &:hover, &:focus {
+            .group-icon {
+                top: 32%;
+                left: 42%;
 
-            &:hover, &:focus {
-                .group-icon {
-                    top: 32%;
-                    left: 42%;
-    
-                    .btn-play {
-                        width: 54px;
-                        height: 54px;
-    
-                        > svg {
-                            width: 22px;
-                            height: 30px;
-                        }
+                .btn-play {
+                    width: 54px;
+                    height: 54px;
+
+                    > svg {
+                        width: 22px;
+                        height: 30px;
                     }
                 }
             }
@@ -72,12 +68,6 @@ const ItemContainer = styled.section`
 
         .info-area {
             padding: 22px 0 8px;
-            display: flex;
-            align-item: center;
-
-            .center-area {
-                flex: 1
-            }
 
             span {
                 color: #000000;
@@ -117,6 +107,33 @@ const ItemContainer = styled.section`
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
+            }
+        }
+        .icon-area {
+            .btn-add {
+                border: 1px solid #CECED2;
+                border-radius: 3px;
+                width: 100%;
+                text-align: left;
+                outline: none;
+
+                &:hover, &:focus {
+                    cursor: pointer;
+                }
+
+                svg {
+                    margin: 12px 55px 12px 12px;
+                }
+
+                span {
+                    text-align: center;
+                    color: #000000;
+                    font-family: Helvetica;
+                    font-size: 12px;
+                    letter-spacing: 0.09px;
+                    line-height: 14px;
+                    opacity: 0.4;
+                }
             }
         }
     }

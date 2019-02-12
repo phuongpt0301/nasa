@@ -8,7 +8,6 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import rootReducer from '../reducers';
-import { saveState, loadState } from '../components/common/localStorage';
 
 const persistConfig = {
     key: 'root',
@@ -27,18 +26,11 @@ export default (initialState) => {
 
     const enhancer = applyMiddleware(...middleware);
 
-    const persistedState = loadState();
-
     const store = createStore(
         persistedReducer,
         initialState,
-        enhancer,
-        persistedState
+        compose(enhancer),
     );
-
-    store.subscribe(() => {
-        saveState(store.getState())
-    })
 
     let persistor = persistStore(store);
 
