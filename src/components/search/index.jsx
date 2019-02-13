@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 
 import { Container } from './style.css';
 import { Col, Row } from '../common/grid.css'; 
@@ -9,6 +10,7 @@ import { fetchDataSearch } from '../../actions/search';
 import Item from './item';
 import { handleDataItemCurrent } from '../../actions/list';
 import { handleModalAddItem } from '../../actions/search';
+import { toastHide } from '../../actions/toast';
 import ModalItem from './ModalItem';
 import ModalAdd from './ModalAdd';
 
@@ -17,6 +19,15 @@ export class Search extends Component {
     state = {
         strSearch: '',
         submit: false,
+    }
+
+    componentDidUpdate(prevProps) {
+        const { dataToast, toastHide } = this.props;
+
+        if(dataToast.isShow) {
+            toast("Create successfully", { autoClose: 5000 });
+            toastHide();
+        }
     }
 
     handleBack = () => {
@@ -92,7 +103,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchDataSearch: (strSearch) => { dispatch(fetchDataSearch(strSearch)) },
         handleDataItemCurrent: (item) => { dispatch(handleDataItemCurrent(item)) },
-        handleModalAddItem: (data) => { dispatch(handleModalAddItem(data)) }
+        handleModalAddItem: (data) => { dispatch(handleModalAddItem(data)) },
+        toastHide: () => {dispatch(toastHide())}
     }
 }
 

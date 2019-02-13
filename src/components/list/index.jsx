@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 
 import { Container } from './style.css';
 import { Row, Col } from '../common/grid.css';
@@ -9,12 +10,22 @@ import IconAdd from '../icons/iconAdd';
 import ModalItem from './ModalItem';
 import ModalEdit from './ModalEdit';
 import { handleDataItemCurrent, fetchDataList, handleModalEditItem } from '../../actions/list';
+import { toastHide } from '../../actions/toast';
 
 export class List extends Component {
 
     componentDidMount() {
         const { fetchDataList } = this.props;
         fetchDataList();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { dataToast, toastHide } = this.props;
+
+        if(dataToast.isShow !== prevProps.dataToast.isShow && dataToast.isShow) {
+            toast("Update successfully", { autoClose: 3000 });
+            toastHide();
+        }
     }
 
     handleAdd = () => {
@@ -68,6 +79,7 @@ const mapDispatchToProps = dispatch => {
         fetchDataList: () => { dispatch(fetchDataList()) },
         handleDataItemCurrent: (item) => { dispatch(handleDataItemCurrent(item)) },
         handleModalEditItem: (item) => { dispatch(handleModalEditItem(item)) },
+        toastHide: () => {dispatch(toastHide())}
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(List);

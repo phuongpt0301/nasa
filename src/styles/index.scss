@@ -219,8 +219,20 @@ body {
             }
         }
     }
+    .btn-heart-active {
+        opacity: 1;
+        border: 1px solid #FF0000;
+    }
+
     .icon-heart {
         background: url('../assets/img/heart.svg') no-repeat left top;
+        width: 22px;
+        height: 20px;
+        display: block;
+        opacity: .3;
+    }
+    .icon-heart-active {
+        background: url('../assets/img/heart-active.svg') no-repeat left top;
         width: 22px;
         height: 20px;
         display: block;

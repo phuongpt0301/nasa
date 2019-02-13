@@ -5,6 +5,7 @@ import { ItemContainer } from './item.css';
 import IconAdd from '../icons/iconAdd';
 import IconPlay from '../icons/iconPlay';
 import ProgressiveImage from '../common/ProgressiveImage';
+import { deleteDataItem, likeDataItem } from '../../actions/list';
 
 const defaultImage = 'http://www.rangerwoodperiyar.com/images/joomlart/demo/default.jpg';
 
@@ -39,6 +40,16 @@ class Item extends Component {
         })
     }
 
+    handleDelete(item) {
+        const { deleteDataItem } = this.props;
+        deleteDataItem(item);
+    }
+
+    handleLike(item) {
+        const { likeDataItem } = this.props;
+        likeDataItem(item);
+    }
+
     render() {
         const { item } = this.props;
         let link = defaultImage;
@@ -65,8 +76,8 @@ class Item extends Component {
                         <p className="description">{ item.description ? item.description : 'Unknown' }</p>
                     </div>
                     <div className="icon-area icon-list-area">
-                       <button type="button" className="btn-heart"><i className="icon-heart"></i></button>
-                       <button type="button" className="btn-trash"><i className="icon-trash"></i></button>
+                       <button type="button" className={`${item.liked ? 'btn-heart-active' : 'btn-heart' }`} onClick={() => this.handleLike(item)}><i className={`${item.liked ? 'icon-heart-active' : 'icon-heart' }`}></i></button>
+                       <button type="button" className="btn-trash" onClick={() => this.handleDelete(item)}><i className="icon-trash"></i></button>
                        <button type="button" className="btn-pen" onClick={() => this.handleEdit(item)}><i className="icon-pen"></i></button>
                     </div>
                 </div>
@@ -79,4 +90,11 @@ const mapStateToProps = state => {
     return {...state}
 }
 
-export default connect(mapStateToProps)(Item);
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteDataItem: (items) => { dispatch(deleteDataItem(items))},
+        likeDataItem: (items) => { dispatch(likeDataItem(items))},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

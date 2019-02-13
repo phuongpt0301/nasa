@@ -10,8 +10,7 @@ import {
 
 import HomeApi from '../api/HomeApi';
 import { fetchDataListAfterAdd } from './list';
-
-import { loadState, saveState } from '../components/common/localStorage'; 
+import { toastShow } from './toast';
 
 function fetchDataSearchError(items) {
     return {
@@ -80,12 +79,16 @@ function fetchDataAddSuccess(items) {
 }
 
 export function fetchDataAdd(items) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(loadingAdd({ loadingAdd: true }));
         if (!items) {
             return dispatch(fetchDataAddError({ error: true, message: 'Error', loading: false }));
         }
+        const { dataSearch } = getState();
+
         dispatch(fetchDataAddSuccess({ error: false, message: '', loading: false }));
+        dispatch(toastShow());
+        dispatch(handleModalAddItem({ currentItem: {}, isShow: !dataSearch.isShow}))
         dispatch(fetchDataListAfterAdd(items));
     };
 }

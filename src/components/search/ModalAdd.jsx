@@ -64,8 +64,7 @@ class ModalAdd extends Component {
 
         const { fetchDataAdd } = this.props;
         const id = uniqueId();
-        console.log(id);
-        fetchDataAdd({id, title, description, mediaType, imageUrl, fileUrl, center, dateCreated});
+        fetchDataAdd({id, liked: false, title, description, mediaType, imageUrl, fileUrl, center, dateCreated});
     }
 
     handleModal() {

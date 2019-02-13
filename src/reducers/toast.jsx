@@ -10,8 +10,9 @@ const initState = {
 export function toast(state = initState, action) {
     switch (action.type) {
         case TOAST_SHOW:
+        return { ...state, isShow: true };
         case TOAST_HIDE:
-            return { ...state, ...action };
+            return { ...state, isShow: false };
         default:
             return { ...state };
     }
