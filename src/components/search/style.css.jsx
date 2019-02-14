@@ -99,9 +99,70 @@ const Container = styled.section`
     }
     .waiting-container {
         display: flex;
-        position: relative;
-        top: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
         justify-content: center;
+        align-items: center;
+        background-color: #000000;
+        opacity: .8;
+        z-index: 100;
+    }
+    .pagination-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    /* Declare some variables */
+    /* Define Styles */
+    .current-page {
+    font-size: 1.5rem;
+    vertical-align: middle; }
+
+    .country-card-container {
+    height: 60px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; }
+
+    .country-name {
+    font-size: 0.9rem; }
+
+    .country-region {
+    font-size: 0.7rem; }
+
+    .current-page,
+    .country-name,
+    .country-region {
+    line-height: 1; }
+
+    /* Override some Bootstrap pagination styles */
+    ul.pagination {
+        flex-wrap: wrap;
+        margin-top: 0;
+        margin-bottom: 0;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+
+        li.page-item.active a.page-link {
+            color: #445565 !important;
+            background-color: #e3e7eb !important;
+            border-color: #ced4da !important; 
+        }
+        a.page-link {
+            padding: 0.75rem 1rem;
+            min-width: 3.5rem;
+            text-align: center;
+            box-shadow: none !important;
+            border-color: #ced4da !important;
+            color: #6b88a4;
+            font-weight: 900;
+            font-size: 1rem; 
+            
+            &:hover {
+                background-color: #f4f4f4; 
+            }
+        }
     }
 `;
 

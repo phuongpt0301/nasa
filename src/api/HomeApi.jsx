@@ -1,8 +1,8 @@
 import { SEARCH_URL } from '../private/config';
 
 class HomeApi {
-  static async search (strSearch) {
-    const request = new Request(SEARCH_URL(strSearch), {
+  static async search (page, strSearch) {
+    const request = new Request(SEARCH_URL(page, strSearch), {
       method: 'GET'
     });
     try {

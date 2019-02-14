@@ -33,18 +33,18 @@ export function fetchDataSearchSuccess(items) {
     };
 }
 
-export function fetchDataSearch(strSearch) {
+export function fetchDataSearch(page = 1, strSearch) {
 
     return async (dispatch) => {
         dispatch(loading({ loading: true }));
 
-        const response = await HomeApi.search(strSearch);
+        const response = await HomeApi.search(page, strSearch);
 
         if (!response) {
             return dispatch(fetchDataSearchError({ error: true, message: 'Error', loading: false }));
         }
 
-        dispatch(fetchDataSearchSuccess({ ...response, error: false, message: '', loading: false }));
+        dispatch(fetchDataSearchSuccess({ ...response, error: false, message: '', loading: false, currentPage: page }));
     };
 }
 

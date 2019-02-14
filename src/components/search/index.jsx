@@ -14,6 +14,7 @@ import { handleModalAddItem } from '../../actions/search';
 import { toastHide } from '../../actions/toast';
 import ModalItem from './ModalItem';
 import ModalAdd from './ModalAdd';
+import Pagination from '../common/pagination';
 
 export class Search extends Component {
 
@@ -47,12 +48,12 @@ export class Search extends Component {
 
         if(strSearch === '') return false;
 
-        fetchDataSearch(strSearch);
+        fetchDataSearch(1, strSearch);
 
     }
 
     render() {
-        const { dataSearch, handleDataItemCurrent, handleModalAddItem } = this.props;
+        const { dataSearch, handleDataItemCurrent, handleModalAddItem, fetchDataSearch } = this.props;
         const { strSearch, submit } = this.state;
 
         return (
@@ -88,6 +89,13 @@ export class Search extends Component {
                             <ClipLoader color={'#784CC0'} size={42} sizeUnit={'px'} />
                         </div>
                     }
+                    {
+                        (dataSearch.collection && dataSearch.collection.items && dataSearch.collection.items.length > 0) &&
+                            <div className="pagination-container">
+                                <Pagination totalRecords={dataSearch.totalPages} pageLimit={dataSearch.limit} pageNeighbours={1} 
+                                currentPage={dataSearch.currentPage} onPageChanged={this.onPageChanged} strSearch={strSearch} fetchDataSearch={fetchDataSearch} />
+                            </div>
+                    }
                 </Col>
                 <ModalItem />
                 { dataSearch.isShow && <ModalAdd /> }
@@ -103,7 +111,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchDataSearch: (strSearch) => { dispatch(fetchDataSearch(strSearch)) },
+        fetchDataSearch: (page, strSearch) => { dispatch(fetchDataSearch(page, strSearch)) },
         handleDataItemCurrent: (item) => { dispatch(handleDataItemCurrent(item)) },
         handleModalAddItem: (data) => { dispatch(handleModalAddItem(data)) },
         toastHide: () => {dispatch(toastHide())}
