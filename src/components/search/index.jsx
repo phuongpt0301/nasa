@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Container } from './style.css';
 import { Col, Row } from '../common/grid.css'; 
@@ -25,7 +26,7 @@ export class Search extends Component {
         const { dataToast, toastHide } = this.props;
 
         if(dataToast.isShow) {
-            toast("Create successfully", { autoClose: 5000 });
+            toast("Create successfully", { autoClose: 3000 });
             toastHide();
         }
     }
@@ -90,6 +91,7 @@ export class Search extends Component {
                 </Col>
                 <ModalItem />
                 { dataSearch.isShow && <ModalAdd /> }
+                <ToastContainer />
             </Container>
         )
     }

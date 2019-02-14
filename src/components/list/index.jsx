@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Container } from './style.css';
 import { Row, Col } from '../common/grid.css';
@@ -65,6 +66,7 @@ export class List extends Component {
                 </div>
                 <ModalItem />
                 { dataList.isEditShow && <ModalEdit /> }
+                <ToastContainer />
             </Container>
         )
     }
